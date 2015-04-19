@@ -66,8 +66,8 @@
 
         var
                 theContainer, renderer, theScene, theCamera, theGeometry,
-                theColor = 0x3B5CA9,
-                transition = 0.01,
+                theColor = 0xFC9845, //0x3B5CA9,
+                transition = 0.002,
                 cubeSize = 1,
                 elem,
                 cubes = [],
@@ -105,7 +105,7 @@
         theLight.position.set(20, 20, 20);
         theScene.add(theLight);
 
-        theLight2 = new THREE.DirectionalLight(0x3B5CA9, 1.2);
+        theLight2 = new THREE.DirectionalLight(0xFCDD45 /*3B5CA9*/, 1.2);
         theLight2.position.set(-20, -20, 20);
         theScene.add(theLight2);
 
@@ -119,8 +119,8 @@
             renderer.render(theScene, theCamera);
 
             $(cubes).map(function (index, cube) {
-                cube.rotation.y += 0.01;
-                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.006;
+                cube.rotation.x += 0.006;
                 cube.position.x += transition;
                 cube.position.x += transition;
             });

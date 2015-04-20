@@ -8,7 +8,8 @@
     <title>3DWeb-cc</title>
     <style>
         body {
-            background-color: #3B5CA9;
+            background-color: #60A1E1;
+            margin: 0;
         }
 
         html, body, .height-100 {
@@ -18,7 +19,7 @@
         iframe {
             overflow: visible;
             margin: auto;
-            height: 768.75px !important;
+            height: 884px !important;
             width: 100%;
             display: block;
             display: none;
@@ -26,7 +27,7 @@
 
         .foreground3d, canvas {
             background: transparent;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             z-index: 9999;
@@ -47,7 +48,11 @@
             scrolling="no"
             seamless="seamless"
             id="gForm"
-            src="https://docs.google.com/forms/d/1Cwl6T_r8Plx4s0_AI7Wp4mb2WmPajzYTPzQwNgedqnQ/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Caricamento in corso...</iframe>
+            src="https://docs.google.com/forms/d/1Cwl6T_r8Plx4s0_AI7Wp4mb2WmPajzYTPzQwNgedqnQ/viewform?embedded=true"
+            width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Caricamento in corso...
+    </iframe>
+
+
     <!--
     <iframe class="height-100"
             scrolling="no"
@@ -62,24 +67,41 @@
 <script type="text/javascript">
 
     $(window).resize(function (e) {
-        var h = $(document).height(), w = $(document).width();
-        $('#myForm').width(w / 3).css('left', w / 2 - (w / 3 / 2));
+        var body = $('body'), h = body.height(), w = body.width();
+        console.log(w + ' x ' + h + ' -> ');
+        var k;
+        if (w > 1200) {
+            k = 3;
+        } else if (w < 480) {
+            k = 1.2;
+        } else if (w < 720) {
+            k = 1.3;
+        } else {
+            k = 2.5;
+        }
+        $('#myForm').width(w / k).css('left', w / 2 - (w / k / 2));
     });
 
-    var theMaterial, theLight, theLight2;
+    var theMaterial, theLight, theLight2, cubeNumber = 20, elem, cubes = [],cubeSize = 1;
+
+    function reSizeScene() {
+        for (var i = 0; i < cubeNumber; i += 1) {
+            for (var k = 0; k < cubeNumber; k += 1) {
+                elem = cubes[(10*i) + k];
+                elem.position.set(-cubeNumber + (cubeSize * 2 * k), -cubeNumber + (cubeSize * 2 * i), 0);
+            }
+        }
+    }
 
     function onStart() {
         'use strict';
 
         var
                 theContainer, renderer, theScene, theCamera, theGeometry,
-                theColor = 0xFC9845, //0x3B5CA9,
+                theColor = 0x60A1E1, //60A1E1, //0x3B5CA9,
                 transition = 0.002,
-                cubeSize = 1,
-                elem,
-                cubes = [],
-                cubeNumber = 20,
-                h = $(document).height(), w = $(document).width();
+                body = $('body'), h = body.height(), w = body.width();
+        //h = $(document).height(), w = $(document).width();
 
         theContainer = $("#animation");
         renderer = new THREE.WebGLRenderer({alpha: true});
@@ -103,16 +125,15 @@
                 elem = new THREE.Mesh(theGeometry, theMaterial);
                 cubes.push(elem);
                 elem.position.set(-cubeNumber + (cubeSize * 2 * k), -cubeNumber + (cubeSize * 2 * i), 0);
-
                 theScene.add(elem);
             }
         }
 
-        theLight = new THREE.DirectionalLight(0xffffff, 1);
+        theLight = new THREE.DirectionalLight(0xD2D2D2, 1);
         theLight.position.set(20, 20, 20);
         theScene.add(theLight);
 
-        theLight2 = new THREE.DirectionalLight(0xFCDD45 /*3B5CA9*/, 1.2);
+        theLight2 = new THREE.DirectionalLight(0x193549 /*3B5CA9*/, 1.2);
         theLight2.position.set(-20, -20, 20);
         theScene.add(theLight2);
 

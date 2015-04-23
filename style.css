@@ -113,6 +113,6 @@ bold {
 
 @media (orientation: landscape), (min-resolution: 192dpi) {
     .my-page {
-        overflow: scroll;
+        /*overflow: scroll;*/
     }
 }

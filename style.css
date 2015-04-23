@@ -50,6 +50,10 @@ iframe {
     position: relative;
 }
 
+bold {
+    font-weight: bolder;
+}
+
 .my-page {
     overflow: hidden;
     box-shadow: 1em 1em 1em #000;
@@ -77,20 +81,38 @@ iframe {
     article {
         padding: 2% 10%;
     }
+
+    body {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
     article {
         padding: 0.6% 4%;
     }
+
+    body {
+        font-size: 12px;
+    }
 }
 
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     body {
         font-size: 32px;
     }
+
     article {
         padding: 0.6% 4%;
+    }
+
+    .frame-container {
+        height: 2060px !important;
+    }
+}
+
+@media (orientation: landscape), (min-resolution: 192dpi) {
+    .my-page {
+        overflow: scroll;
     }
 }
